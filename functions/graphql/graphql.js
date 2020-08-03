@@ -72,7 +72,7 @@ const resolvers = {
           },
         })
       );
-      return todos[id];
+      return results;
     },
   },
 };
