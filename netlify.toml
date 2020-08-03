@@ -1,0 +1,7 @@
+[build]
+  publish = "packages/www/public/"
+  command = "yarn workspace www build && cd functions/graphql && yarn"
+  functions = "functions/"
+
+[build.environment]
+  GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES = true
