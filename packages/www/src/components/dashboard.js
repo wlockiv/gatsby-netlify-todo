@@ -34,7 +34,6 @@ const GET_TODOS = gql`
 `;
 
 export default () => {
-  const { user } = useContext(IdentityContext);
   const [addTodo] = useMutation(ADD_TODO);
   const [updateTodoDone] = useMutation(UPDATE_TODO_DONE);
   const { loading, error, data, refetch } = useQuery(GET_TODOS);

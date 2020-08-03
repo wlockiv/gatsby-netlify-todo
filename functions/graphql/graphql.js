@@ -23,7 +23,11 @@ let todoIndex = 0;
 
 const resolvers = {
   Query: {
-    todos: () => {
+    todos: (parent, args, { user }) => {
+      if (!user) {
+        return [];
+      }
+
       return Object.values(todos);
     },
   },
@@ -44,6 +48,13 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ context }) => {
+    if (context.clientContext.user) {
+      return { user: context.clientContext.user.sub };
+    }
+
+    return {};
+  },
   playground: true,
   introspection: true,
 });
