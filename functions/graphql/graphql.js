@@ -72,7 +72,11 @@ const resolvers = {
           },
         })
       );
-      return results;
+
+      return {
+        ...results.data,
+        id: results.ref.id,
+      };
     },
   },
 };
