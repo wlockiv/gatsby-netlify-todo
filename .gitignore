@@ -1,0 +1,7 @@
+# Gatsby-geterated
+.cache
+public
+
+# Yarn
+yarn-error.log
+node_modules

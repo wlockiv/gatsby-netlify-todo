@@ -1,0 +1,12 @@
+{
+  "name": "gatsby-netlify-todo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/wlockiv/gatsby-netlify-todo.git",
+  "author": "wlockiv <walker.b.lockard@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
