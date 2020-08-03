@@ -3,13 +3,41 @@ const { ApolloServer, gql } = require('apollo-server-lambda');
 // Construct a schema, using GraphQL Schema Language
 const typeDefs = gql`
   type Query {
-    hello: String
+    todos: [Todo]!
+  }
+
+  type Todo {
+    id: ID!
+    text: String!
+    done: Boolean!
+  }
+
+  type Mutation {
+    addTodo(text: String!): Todo
+    updateTodoDone(id: ID!): Todo
   }
 `;
 
+const todos = {};
+let todoIndex = 0;
+
 const resolvers = {
   Query: {
-    hello: () => 'Hello, World!',
+    todos: () => {
+      return Object.values(todos);
+    },
+  },
+  Mutation: {
+    addTodo: (_, { text }) => {
+      todoIndex++;
+      const id = `key-${todoIndex}`;
+      todos[id] = { id, text, done: false };
+      return todos[id];
+    },
+    updateTodoDone: (_, { id }) => {
+      todos[id] = true;
+      return todos[id];
+    },
   },
 };
 
