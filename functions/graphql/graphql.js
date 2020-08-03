@@ -58,7 +58,7 @@ const resolvers = {
         id: results.ref.id,
       };
     },
-    updateTodoDone: (_, { id }, {user}) => {
+    updateTodoDone: async (_, { id }, { user }) => {
       if (!user) {
         throw new Error('Must be authenticated to insert todos.');
       }
@@ -66,10 +66,10 @@ const resolvers = {
       const results = await client.query(
         q.Update(q.Ref(q.Collection('todos'), id), {
           data: {
-            done: true
-          }
+            done: true,
+          },
         })
-      )
+      );
       return todos[id];
     },
   },
