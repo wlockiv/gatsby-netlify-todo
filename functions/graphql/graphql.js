@@ -32,9 +32,11 @@ const resolvers = {
         q.Paginate(q.Match(q.Index('todos_by_user'), user))
       );
 
-      return results.data.map(([ref, text, done]) => {
-        id: ref.id, text, done;
-      });
+      return results.data.map(([ref, text, done]) => ({
+        id: ref.id,
+        text,
+        done,
+      }));
     },
   },
   Mutation: {
@@ -60,7 +62,7 @@ const resolvers = {
     },
     updateTodoDone: async (_, { id }, { user }) => {
       if (!user) {
-        throw new Error('Must be authenticated to insert todos.');
+        throw new Error('Must be authenticated to update todos.');
       }
 
       const results = await client.query(
