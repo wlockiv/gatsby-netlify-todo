@@ -1,12 +1,11 @@
-import { Button, Container, Flex, Heading, NavLink } from 'theme-ui';
+import { Button, Flex, Heading } from 'theme-ui';
 import React, { useContext } from 'react';
 
 import { IdentityContext } from '../../identity-context';
 import Layout from '../components/layout';
-import { Link } from 'gatsby';
 
 export default (props) => {
-  const { user, identity: netlifyIdentity } = useContext(IdentityContext);
+  const { identity: netlifyIdentity } = useContext(IdentityContext);
 
   return (
     <Layout>

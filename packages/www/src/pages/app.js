@@ -1,25 +1,13 @@
-import { Button, Container, Flex, Heading, NavLink } from 'theme-ui';
-import { Link, Router } from '@reach/router';
+import { Button, Flex, Heading } from 'theme-ui';
 import React, { useContext } from 'react';
 
+import Dash from '../components/dashboard';
 import { IdentityContext } from '../../identity-context';
 import Layout from '../components/layout';
-import netlifyIdentity from 'netlify-identity-widget';
-
-let Dash = () => {
-  const { user } = useContext(IdentityContext);
-
-  return (
-    <Layout>
-      <Container>
-        Dash hasUser: {user && user.user_metadata.full_name}
-      </Container>
-    </Layout>
-  );
-};
+import { Router } from '@reach/router';
 
 let DashLoggedOut = (props) => {
-  const { user, identity: netlifyIdentity } = useContext(IdentityContext);
+  const { identity: netlifyIdentity } = useContext(IdentityContext);
 
   return (
     <Layout>

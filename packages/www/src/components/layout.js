@@ -1,4 +1,4 @@
-import { Button, Container, Flex, NavLink } from 'theme-ui';
+import { Container, Flex, NavLink } from 'theme-ui';
 import React, { useContext } from 'react';
 
 import { IdentityContext } from '../../identity-context';
