@@ -1,4 +1,4 @@
-import { Container, Flex, NavLink } from 'theme-ui';
+import { Box, Container, Flex, Heading, NavLink } from 'theme-ui';
 import React, { useContext } from 'react';
 
 import { IdentityContext } from '../../identity-context';
@@ -33,10 +33,13 @@ const Nav = (props) => {
   );
 };
 
-export default ({ children }) => {
+export default ({ children, pageTitle }) => {
   return (
     <Container>
       <Nav />
+      <Box p={2}>
+        <Heading as="h1">{pageTitle}</Heading>
+      </Box>
       {children}
     </Container>
   );

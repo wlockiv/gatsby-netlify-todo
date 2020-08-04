@@ -1,31 +1,15 @@
-const { ApolloServer, gql } = require('apollo-server-lambda');
+const { ApolloServer } = require('apollo-server-lambda');
 const faunadb = require('faunadb');
+const { types } = require('./types');
 
 const q = faunadb.query;
 const client = new faunadb.Client({ secret: process.env.FAUNA });
-
-const typeDefs = gql`
-  type Query {
-    todos: [Todo]!
-  }
-
-  type Todo {
-    id: ID!
-    text: String!
-    done: Boolean!
-  }
-
-  type Mutation {
-    addTodo(text: String!): Todo
-    updateTodoDone(id: ID!): Todo
-  }
-`;
 
 const resolvers = {
   Query: {
     todos: async (parent, args, { user }) => {
       if (!user) {
-        return [];
+        throw new Error('Must be authenticated to get todos.');
       }
 
       const results = await client.query(
@@ -60,7 +44,7 @@ const resolvers = {
         id: results.ref.id,
       };
     },
-    updateTodoDone: async (_, { id }, { user }) => {
+    updateTodo: async (_, { id, done, text }, { user }) => {
       if (!user) {
         throw new Error('Must be authenticated to update todos.');
       }
@@ -68,7 +52,8 @@ const resolvers = {
       const results = await client.query(
         q.Update(q.Ref(q.Collection('todos'), id), {
           data: {
-            done: true,
+            done: done,
+            text: text,
           },
         })
       );
@@ -82,7 +67,7 @@ const resolvers = {
 };
 
 const server = new ApolloServer({
-  typeDefs,
+  typeDefs: types,
   resolvers,
   context: ({ context }) => {
     if (context.clientContext.user) {
