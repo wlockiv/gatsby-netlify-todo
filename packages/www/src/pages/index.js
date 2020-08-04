@@ -17,7 +17,12 @@ export default (props) => {
           </Box>
         ) : (
           <Box sx={{ mt: 'auto', mb: 'auto', textAlign: 'center' }}>
-            <Heading>✅ Get Stuff Done</Heading>
+            <Heading>
+              <span role="img" aria-label="check mark">
+                ✅
+              </span>{' '}
+              Get Stuff Done
+            </Heading>
             <Button
               sx={{ mt: 2, width: '200px' }}
               onClick={() => {

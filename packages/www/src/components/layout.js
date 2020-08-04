@@ -7,49 +7,51 @@ import { Link } from '@reach/router';
 const Nav = (props) => {
   const { user, identity: netlifyIdentity } = useContext(IdentityContext);
 
+  const NavLinkEmoji = ({ emoji, label, ...props }) => {
+    return (
+      <NavLink p={2} {...props}>
+        <span role="img" aria-label={label}>
+          {emoji}
+        </span>
+        &nbsp;{label}
+      </NavLink>
+    );
+  };
+
   return (
     <Flex as="nav">
-      <NavLink as={Link} to="/" p={2}>
-        🏠 Home
-      </NavLink>
-      <NavLink as={Link} to="/app" p={2}>
-        📃 Dashboard
-      </NavLink>
+      <NavLinkEmoji as={Link} emoji="🏠" label="Home" to="/" />
+      <NavLinkEmoji as={Link} emoji="📃" label="Dashboard" to="/app" />
       {user ? (
-        <NavLink
-          variant="button"
-          href="#!"
-          p={2}
+        <NavLinkEmoji
           sx={{ ml: 'auto' }}
+          emoji="✌"
+          label={`Log Out ${user.user_metadata.full_name}`}
+          to="#!"
           onClick={() => {
             netlifyIdentity.logout();
           }}
-        >
-          Log Out {user.user_metadata.full_name}
-        </NavLink>
+        />
       ) : (
         <>
-          <NavLink
-            variant="button"
+          <NavLinkEmoji
+            emoji="📝"
+            label="Sign Up"
             href="#!"
-            p={2}
             sx={{ ml: 'auto' }}
             onClick={() => {
               netlifyIdentity.open('signup');
             }}
-          >
-            📝 Sign Up
-          </NavLink>
-          <NavLink
-            variant="button"
+          />
+          <NavLinkEmoji
+            emoji="🚪"
+            label="Log In"
             href="#!"
             p={2}
             onClick={() => {
               netlifyIdentity.open('login');
             }}
-          >
-            🚪 Log In
-          </NavLink>
+          />
         </>
       )}
     </Flex>
