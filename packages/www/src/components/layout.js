@@ -10,15 +10,14 @@ const Nav = (props) => {
   return (
     <Flex as="nav">
       <NavLink as={Link} to="/" p={2}>
-        Home
+        🏠 Home
       </NavLink>
       <NavLink as={Link} to="/app" p={2}>
-        Dashboard
+        📃 Dashboard
       </NavLink>
       {user ? (
         <NavLink
           variant="button"
-          // as={Link}
           href="#!"
           p={2}
           sx={{ ml: 'auto' }}
@@ -28,7 +27,31 @@ const Nav = (props) => {
         >
           Log Out {user.user_metadata.full_name}
         </NavLink>
-      ) : undefined}
+      ) : (
+        <>
+          <NavLink
+            variant="button"
+            href="#!"
+            p={2}
+            sx={{ ml: 'auto' }}
+            onClick={() => {
+              netlifyIdentity.open('signup');
+            }}
+          >
+            📝 Sign Up
+          </NavLink>
+          <NavLink
+            variant="button"
+            href="#!"
+            p={2}
+            onClick={() => {
+              netlifyIdentity.open('login');
+            }}
+          >
+            🚪 Log In
+          </NavLink>
+        </>
+      )}
     </Flex>
   );
 };
@@ -37,10 +60,12 @@ export default ({ children, pageTitle }) => {
   return (
     <Container>
       <Nav />
-      <Box p={2}>
-        <Heading as="h1">{pageTitle}</Heading>
-      </Box>
-      {children}
+      <Container as="main">
+        <Box p={2}>
+          <Heading as="h1">{pageTitle}</Heading>
+        </Box>
+        {children}
+      </Container>
     </Container>
   );
 };

@@ -9,24 +9,24 @@ export default (props) => {
 
   return (
     <Layout pageTitle="Todo Home">
-      <Flex sx={{ flexDirection: 'column', padding: 3 }}>
+      <Flex sx={{ flexDirection: 'column', padding: 2, height: '50vh' }}>
         {user ? (
-          <Box sx={{ textAlign: 'center' }}>
+          <Box sx={{ mt: 'auto', mb: 'auto', textAlign: 'center' }}>
             <Heading>Howdy {user.user_metadata.full_name} 👋</Heading>
-            <Heading as="h3">Manage Todos in your Dashboard</Heading>
+            <Heading as="h3">Manage Todos in the Dashboard</Heading>
           </Box>
         ) : (
-          <>
-            <Heading>Get Stuff Done</Heading>
+          <Box sx={{ mt: 'auto', mb: 'auto', textAlign: 'center' }}>
+            <Heading>✅ Get Stuff Done</Heading>
             <Button
-              sx={{ mt: 2 }}
+              sx={{ mt: 2, width: '200px' }}
               onClick={() => {
                 netlifyIdentity.open();
               }}
             >
               Log In
             </Button>
-          </>
+          </Box>
         )}
       </Flex>
     </Layout>
