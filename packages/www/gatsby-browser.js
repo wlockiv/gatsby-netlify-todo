@@ -30,6 +30,10 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
 });
 
+netlifyIdentity.on('logout', () => {
+  client.cache.reset();
+});
+
 exports.wrapRootElement = ({ element }) => {
   return (
     <ApolloProvider client={client}>

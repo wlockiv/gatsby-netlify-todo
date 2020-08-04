@@ -2,7 +2,7 @@ import { Box, Container, Flex, Heading, NavLink } from 'theme-ui';
 import React, { useContext } from 'react';
 
 import { IdentityContext } from '../../identity-context';
-import { Link } from 'gatsby';
+import { Link } from '@reach/router';
 
 const Nav = (props) => {
   const { user, identity: netlifyIdentity } = useContext(IdentityContext);
@@ -18,8 +18,8 @@ const Nav = (props) => {
       {user ? (
         <NavLink
           variant="button"
-          as={Link}
-          to="/"
+          // as={Link}
+          href="#!"
           p={2}
           sx={{ ml: 'auto' }}
           onClick={() => {

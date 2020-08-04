@@ -1,20 +1,18 @@
 /** @jsx jsx */
+
+import { ADD_TODO, GET_TODOS, UPDATE_TODO } from '../graphql-queries';
 import {
-  Box,
   Button,
   Checkbox,
   Flex,
   Heading,
   Input,
-  jsx,
   Label,
   Spinner,
+  jsx,
 } from 'theme-ui';
 import React, { useRef } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
-
-import Layout from '../components/layout';
-import { ADD_TODO, UPDATE_TODO, GET_TODOS } from '../graphql-queries';
 
 const styles = {
   table: {
@@ -55,7 +53,7 @@ export default () => {
   };
 
   return (
-    <Layout pageTitle="Todo Application">
+    <React.Fragment>
       <Flex
         as="form"
         my={4}
@@ -114,6 +112,6 @@ export default () => {
           </table>
         )}
       </Flex>
-    </Layout>
+    </React.Fragment>
   );
 };

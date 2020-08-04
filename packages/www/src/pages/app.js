@@ -10,19 +10,17 @@ let DashLoggedOut = (props) => {
   const { identity: netlifyIdentity } = useContext(IdentityContext);
 
   return (
-    <Layout>
-      <Flex sx={{ flexDirection: 'column', padding: 3 }}>
-        <Heading as="h1">Get Stuff Done</Heading>
-        <Button
-          sx={{ mt: 2 }}
-          onClick={() => {
-            netlifyIdentity.open();
-          }}
-        >
-          Log In
-        </Button>
-      </Flex>
-    </Layout>
+    <Flex sx={{ flexDirection: 'column', padding: 3 }}>
+      <Heading as="h1">Get Stuff Done</Heading>
+      <Button
+        sx={{ mt: 2 }}
+        onClick={() => {
+          netlifyIdentity.open();
+        }}
+      >
+        Log In
+      </Button>
+    </Flex>
   );
 };
 
@@ -30,15 +28,19 @@ export default (props) => {
   const { user } = useContext(IdentityContext);
   if (!user) {
     return (
-      <Router>
-        <DashLoggedOut path="/app"></DashLoggedOut>
-      </Router>
+      <Layout pageTitle="Todo App (Logged out)">
+        <Router>
+          <DashLoggedOut path="/app"></DashLoggedOut>
+        </Router>
+      </Layout>
     );
   }
 
   return (
-    <Router>
-      <Dash path="/app"></Dash>
-    </Router>
+    <Layout pageTitle="Todo App">
+      <Router>
+        <Dash path="/app"></Dash>
+      </Router>
+    </Layout>
   );
 };
