@@ -13,6 +13,7 @@ const types = gql`
   type Mutation {
     addTodo(text: String!): Todo
     updateTodo(id: ID!, done: Boolean!, text: String!): Todo
+    deleteTodo(id: ID!): Todo
   }
 `;
 exports.types = types;

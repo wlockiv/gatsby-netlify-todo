@@ -13,7 +13,7 @@ export default (props) => {
         {user ? (
           <Box sx={{ mt: 'auto', mb: 'auto', textAlign: 'center' }}>
             <Heading>Howdy {user.user_metadata.full_name} 👋</Heading>
-            <Heading as="h3">Manage Todos in the Dashboard</Heading>
+            <Heading as="h3">Manage Todos on the App Page</Heading>
           </Box>
         ) : (
           <Box sx={{ mt: 'auto', mb: 'auto', textAlign: 'center' }}>

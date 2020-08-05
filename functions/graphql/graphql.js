@@ -63,6 +63,20 @@ const resolvers = {
         id: results.ref.id,
       };
     },
+    deleteTodo: async (_, { id }, { user }) => {
+      if (!user) {
+        throw new Error('Must be authenticated to delete todos');
+      }
+
+      const results = await client.query(
+        q.Delete(q.Ref(q.Collection('todos'), id))
+      );
+
+      return {
+        ...results.data,
+        id: results.ref.id,
+      };
+    },
   },
 };
 

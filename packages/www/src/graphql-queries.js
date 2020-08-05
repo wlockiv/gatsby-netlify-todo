@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+
 export const ADD_TODO = gql`
   mutation AddTodo($text: String!) {
     addTodo(text: $text) {
@@ -6,6 +7,7 @@ export const ADD_TODO = gql`
     }
   }
 `;
+
 export const UPDATE_TODO = gql`
   mutation UpdateTodo($id: ID!, $done: Boolean!, $text: String!) {
     updateTodo(id: $id, done: $done, text: $text) {
@@ -15,6 +17,17 @@ export const UPDATE_TODO = gql`
     }
   }
 `;
+
+export const DELETE_TODO = gql`
+  mutation DeleteTodo($id: ID!) {
+    deleteTodo(id: $id) {
+      id
+      text
+      done
+    }
+  }
+`;
+
 export const GET_TODOS = gql`
   query GetTodos {
     todos {

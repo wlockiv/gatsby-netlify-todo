@@ -9,7 +9,7 @@ const Nav = (props) => {
 
   const NavLinkEmoji = ({ emoji, label, ...props }) => {
     return (
-      <NavLink p={2} {...props}>
+      <NavLink py={2} px={1} {...props}>
         <span role="img" aria-label={label}>
           {emoji}
         </span>
@@ -21,10 +21,10 @@ const Nav = (props) => {
   return (
     <Flex as="nav">
       <NavLinkEmoji as={Link} emoji="🏠" label="Home" to="/" />
-      <NavLinkEmoji as={Link} emoji="📃" label="Dashboard" to="/app" />
+      <NavLinkEmoji as={Link} emoji="📃" label="App" to="/app" />
       {user ? (
         <NavLinkEmoji
-          sx={{ ml: 'auto' }}
+          sx={{ ml: 'auto', cursor: 'pointer' }}
           emoji="✌"
           label={`Log Out ${user.user_metadata.full_name}`}
           to="#!"
@@ -35,15 +35,16 @@ const Nav = (props) => {
       ) : (
         <>
           <NavLinkEmoji
+            sx={{ ml: 'auto', cursor: 'pointer' }}
             emoji="📝"
             label="Sign Up"
             href="#!"
-            sx={{ ml: 'auto' }}
             onClick={() => {
               netlifyIdentity.open('signup');
             }}
           />
           <NavLinkEmoji
+            sx={{ cursor: 'pointer' }}
             emoji="🚪"
             label="Log In"
             href="#!"
@@ -62,10 +63,10 @@ export default ({ children, pageTitle }) => {
   return (
     <Container>
       <Nav />
-      <Container as="main">
-        <Box p={2}>
-          <Heading as="h1">{pageTitle}</Heading>
-        </Box>
+      <Box as="header" p={2}>
+        <Heading as="h1">{pageTitle}</Heading>
+      </Box>
+      <Container as="main" p={3}>
         {children}
       </Container>
     </Container>

@@ -1,56 +1,24 @@
 /** @jsx jsx */
 
-import { ADD_TODO, GET_TODOS, UPDATE_TODO } from '../graphql-queries';
 import {
-  Button,
-  Checkbox,
-  Flex,
-  Heading,
-  Input,
-  Label,
-  Spinner,
-  jsx,
-} from 'theme-ui';
+  ADD_TODO,
+  DELETE_TODO,
+  GET_TODOS,
+  UPDATE_TODO,
+} from '../../graphql-queries';
+import { Button, Flex, Heading, Input, Label, jsx } from 'theme-ui';
 import React, { useRef } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 
-const styles = {
-  table: {
-    width: '100%',
-    borderSpacing: 0,
-    borderStyle: 'solid',
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 4,
-  },
-  th: {
-    borderBottomStyle: 'solid',
-    borderBottomColor: 'gray',
-  },
-  td: {
-    borderBottomStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'gray',
-  },
-};
+import TodoTable from './todo-table';
 
 export default () => {
   const [addTodo] = useMutation(ADD_TODO);
   const [updateTodo] = useMutation(UPDATE_TODO);
+  const [deleteTodo] = useMutation(DELETE_TODO);
   const { loading, error, data, refetch } = useQuery(GET_TODOS);
 
   const inputRef = useRef();
-
-  const handleCheckboxClick = async (todo) => {
-    await updateTodo({
-      variables: {
-        id: todo.id,
-        done: !todo.done,
-        text: todo.text,
-      },
-    });
-    await refetch();
-  };
 
   return (
     <React.Fragment>
@@ -83,7 +51,15 @@ export default () => {
         <Heading mb={2} sx={{ textAlign: 'center' }}>
           Current Todos
         </Heading>
-        {loading ? <Spinner mx="auto" /> : null}
+        <TodoTable
+          data={data}
+          loading={loading}
+          error={error}
+          refetch={refetch}
+          updateTodo={updateTodo}
+          deleteTodo={deleteTodo}
+        ></TodoTable>
+        {/* {loading ? <Spinner mx="auto" /> : null}
         {error ? <div>{error.message}</div> : null}
         {!loading && !error && (
           <table sx={styles.table}>
@@ -91,6 +67,7 @@ export default () => {
               <tr>
                 <th sx={styles.th}>Status</th>
                 <th sx={styles.th}>Name</th>
+                <th sx={styles.th}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -106,11 +83,21 @@ export default () => {
                     </Label>
                   </td>
                   <td sx={styles.td}>{todo.text}</td>
+                  <td sx={{ ...styles.td, textAlign: 'center' }}>
+                    <IconButton
+                      onClick={() => handleDeleteClick(todo.id)}
+                      sx={{ cursor: 'pointer' }}
+                    >
+                      <span role="img" aria-label="delete">
+                        🔥
+                      </span>
+                    </IconButton>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        )}
+        )} */}
       </Flex>
     </React.Fragment>
   );
